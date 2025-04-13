@@ -45,4 +45,4 @@ if st.button("Predict"):
     probability = model.predict_proba(input_df)[0][1]
     result = "High Risk of Diabetes" if prediction == 1 else "Low Risk"
     st.subheader(f"Prediction: {result}")
-    st.write(f"Confidence: {probability * 100:.2f}%")
+    #st.write(f"Confidence: {probability * 100:.2f}%")
