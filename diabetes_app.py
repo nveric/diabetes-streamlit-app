@@ -1,32 +1,44 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
 
-# Load model
-model = joblib.load("diabetes_model.pkl")
+@st.cache_data
+def load_data():
+    url = "https://raw.githubusercontent.com/plotly/datasets/master/diabetes.csv"
+    df = pd.read_csv(url)
+    # Handle missing values
+    cols = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
+    df[cols] = df[cols].replace(0, np.nan)
+    df.fillna(df.median(), inplace=True)
+    return df
 
-st.set_page_config(page_title="Diabetes Risk Predictor", layout="centered")
+# Load data and train model
+df = load_data()
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X, y)
+
+# App title
 st.title("Diabetes Risk Predictor")
-st.write("Enter patient info to predict diabetes risk:")
+st.write("Enter patient details to predict the likelihood of diabetes.")
 
-# Input form
-pregnancies = st.number_input("Pregnancies", min_value=0, max_value=20, value=1)
+# Input fields
+pregnancies = st.number_input("Pregnancies", 0, 20, 1)
 glucose = st.slider("Glucose Level", 0, 200, 120)
-blood_pressure = st.slider("Blood Pressure", 0, 140, 70)
-skin_thickness = st.slider("Skin Thickness (mm)", 0, 100, 20)
+bp = st.slider("Blood Pressure", 0, 140, 70)
+skin = st.slider("Skin Thickness", 0, 100, 20)
 insulin = st.slider("Insulin", 0, 900, 80)
 bmi = st.slider("BMI", 10.0, 60.0, 25.0)
 dpf = st.slider("Diabetes Pedigree Function", 0.0, 2.5, 0.5)
 age = st.slider("Age", 10, 100, 33)
 
-# Prediction
+# Predict
 input_df = pd.DataFrame([[
-    pregnancies, glucose, blood_pressure, skin_thickness,
-    insulin, bmi, dpf, age
-]], columns=[
-    "Pregnancies", "Glucose", "BloodPressure", "SkinThickness",
-    "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"
-])
+    pregnancies, glucose, bp, skin, insulin, bmi, dpf, age
+]], columns=X.columns)
 
 if st.button("Predict"):
     prediction = model.predict(input_df)[0]
