@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Risk Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f8f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        h1 {
+            color: #0275d8;
+            font-size: 2.5rem;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #0275d8;
+        }
+        a.button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            color: white;
+            background-color: #0275d8;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        a.button:hover {
+            background-color: #025aa5;
+        }
+        .note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diabetes Risk Predictor</h1>
+        <p>This tool helps you assess the likelihood of developing diabetes based on clinical indicators like glucose level, BMI, blood pressure, age, and more. It's powered by a machine learning model trained on real patient data.</p>
+        
+        <h2>How It Works</h2>
+        <ul>
+            <li>Enter basic health indicators (glucose, BMI, etc.).</li>
+            <li>Our model predicts the risk using a Random Forest Classifier.</li>
+            <li>Receive a risk category (Low or High) with a confidence score.</li>
+        </ul>
+
+        <h2>Machine Learning Model</h2>
+        <ul>
+            <li><strong>Dataset:</strong> Pima Indians Diabetes Dataset</li>
+            <li><strong>Features:</strong> Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age</li>
+            <li><strong>Model:</strong> Random Forest Classifier</li>
+            <li><strong>Accuracy:</strong> ~87%</li>
+        </ul>
+
+        <a class="button" href="http://your-vps-ip:8501" target="_blank">→ Launch App</a>
+
+        <p class="note">* This app is for educational/demo purposes only and not a substitute for professional medical advice.</p>
+    </div>
+</body>
+</html>
